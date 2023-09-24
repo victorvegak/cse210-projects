@@ -15,13 +15,14 @@ class Program
 
        Random randomGenerator = new Random();
        int magicNumber = randomGenerator.Next(1, 101);
-
+       int count = 0; 
        int guess = -1;
 
        while (guess != magicNumber)
        {
         Console.Write("What is your guess? ");
         guess = int.Parse(Console.ReadLine());
+        count = count + 1;
 
         if (magicNumber > guess)
         {
@@ -35,7 +36,12 @@ class Program
         {
             Console.WriteLine("You Guessed it!");
         }
+        
        }
+       Console.WriteLine ($"it took you {count} guesses");
 
+       Console.WriteLine ("would you like to play again? "); 
+       string keepPlaying =  Console.ReadLine();
+       
     }
 }
