@@ -1,7 +1,7 @@
 using System;
 
 class Entry
-{
+{// store prompt, response and date 
     public string Prompt { get; }
     public string Response { get; }
     public string  Date { get; }
@@ -13,7 +13,7 @@ class Entry
         Date = date;
     }
 
-    public override string ToString()
+    public override string ToString()// this allow us to use | for our format 
     {
         return $"{Prompt} | {Response} | {Date}";
     }

@@ -17,13 +17,13 @@ class Journal
 
     public string GenerateRandomPrompt()
     {
-        Random random = new Random();
+        Random random = new Random(); // provide random prompts for users to answer 
         int index = random.Next(prompts.Count);
         return prompts [index];
     }
     public void AddEntry(string prompt, string response)
     {
-        Entry entry = new Entry(prompt, response, DateTime.Now.ToString());
+        Entry entry = new Entry(prompt, response, DateTime.Now.ToString()); //  format 
         entries.Add(entry);
     }
     public List <Entry> GetEntries()
@@ -32,7 +32,7 @@ class Journal
     }
     public void SaveToFile(string filename)
     {
-        using (StreamWriter writer = new StreamWriter(filename))
+        using (StreamWriter writer = new StreamWriter(filename)) // writing new data (saving entries)
         {
             foreach (Entry entry in entries)
             {
@@ -44,14 +44,14 @@ class Journal
 
     public void LoadFromFile(string filename)
     {
-        entries.Clear();
-        using (StreamReader reader = new StreamReader (filename))
+        entries.Clear();  // this clear entries 
+        using (StreamReader reader = new StreamReader (filename))//  read from the filename 
         {
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                string[] parts = line.Split('I');
-                if (parts.Length == 3)
+                string[] parts = line.Split('|'); //  separator added here 
+                if (parts.Length == 3) // Condition helps to ensure that the line is in the correct formar 
                 {
                     entries.Add(new Entry(parts[0], parts[1], parts[2]));
                 
