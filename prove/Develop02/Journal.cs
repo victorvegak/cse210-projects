@@ -35,8 +35,12 @@ class Journal
         using (StreamWriter writer = new StreamWriter(filename)) // writing new data (saving entries)
         {
             foreach (Entry entry in entries)
-            {
-                writer.WriteLine(entry.ToString());
+            { // special characters in CSV Fiels 
+                string prompt = entry.Prompt.Replace("\"", "\"\"");
+                string response = entry. Response.Replace("\"", "\"\"");
+                string date = entry.Date;
+
+                writer.WriteLine($"\"{prompt}\",\"{response}\",\"{date}\"");
             }
         }
         Console.WriteLine ("Journal saved to file succesfully!");
@@ -49,11 +53,15 @@ class Journal
         {
             string line;
             while ((line = reader.ReadLine()) != null)
-            {
-                string[] parts = line.Split('|'); //  separator added here 
+            {//split by commas 
+                string[] parts = line.Split(','); //  separator added here 
                 if (parts.Length == 3) // Condition helps to ensure that the line is in the correct formar 
                 {
-                    entries.Add(new Entry(parts[0], parts[1], parts[2]));
+                    string prompt = parts[0].Trim('"');
+                    string response = parts[1].Trim('"');
+                    string date = parts[2].Trim('"');
+
+                    entries.Add(new Entry(prompt, response, date));
                 
                 }
             }

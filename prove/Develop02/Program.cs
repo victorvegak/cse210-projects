@@ -31,7 +31,7 @@ while (true)
             Environment.Exit(0); // Exit Program 
             break;
         default:
-            Console.WriteLine("Invalid choice. Try again.");
+            Console.WriteLine("Invalid choice. Try again."); //  We let user know if they make mistake with their choice
             break;
     }
 }
