@@ -1,10 +1,10 @@
 
 public class Listing: Activity
-{
+ {
     private List<string> _prompts;
     private List<string> _responses;
 
-    public Listing() : base(0, "Listing Activity:\nThis activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area. ")
+    public Listing() : base("Listing", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
     {
         _prompts = new List<string>
         {
@@ -17,37 +17,54 @@ public class Listing: Activity
         _responses = new List<string>();
     }
 
-    public override string GetDescription()
-    {
-        return _mainIntro;
-    }
     public override void Start(int duration)
     {
-        Console.WriteLine("Start Listing....");
-        foreach (string prompt in _prompts)
-        {
-        Console.WriteLine($"Prompt: {prompt}");
-        Console.WriteLine("Enter your response: ");
-        string response = Console.ReadLine();
-        _responses.Add(response);
-        Console.Clear();
 
-        // countdown animation 
-        for (int i = 5; i> 0; i --)
-        {
-            Console.WriteLine($"{i} seconds");
-            Thread.Sleep(2000);
-            Console.Clear();
+        DisplayStartMessage();
+        SpinnerAnimation(10);
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(duration);
 
-        }
-            
-        }
-    
+        
+        while (DateTime.Now < endTime)
+        {
+            // Display a random prompt
+            string randomPrompt = GetRandomPrompt();
+            Console.WriteLine($">{randomPrompt}");
+
+            // enter response
+            while(DateTime.Now < endTime)
+            {
+
+                Console.Write("> ");
+                string response = Console.ReadLine();
+                
+        
+                if (string.IsNullOrWhiteSpace(response))
+                {
+                    break;
+                }
+                _responses.Add(response);
+            }
+        }  
+
         Console.WriteLine("Listing completed.");
-        Console.WriteLine($"Number of response entered: {_responses.Count}");
-        Console.WriteLine("Well done! ");
+        Console.WriteLine($"Number of responses entered: {_responses.Count}");
         Thread.Sleep(5000);
         Console.Clear();
+        DisplayEndMessage();
+        
+    
+    }
+    private string GetRandomPrompt()
+    {
+        Random random = new Random();
+        int index = random.Next(_prompts.Count);
+        return _prompts[index];
+    }
 
+    public override string GetDescription()
+    {
+        return "Description for Listing activity.";
     }
 }

@@ -1,22 +1,22 @@
 
+
 public class Reflecting : Activity
 {
     private List<string> _prompts;
     private List<string> _questions;
 
-    public Reflecting () : base (0, "Reflection Activity:\n This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.")
+    public Reflecting() : base("Reflecting", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.")
     {
-      
         _prompts = new List<string>
-        {
-        "Think of a time when you stood up for someone else.",
+    {
+           "Think of a time when you stood up for someone else.",
         "Think of a time when you did something really difficult.",
         "Think of a time when you helped someone in need.",
         "Think of a time when you did something truly selfless."
-        };
+    };
 
         _questions = new List<string>
-        {
+    {
         "Why was this experience meaningful to you?",
         "Have you ever done anything like this before?",
         "How did you get started?",
@@ -26,41 +26,38 @@ public class Reflecting : Activity
         "What could you learn from this experience that applies to other situations?",
         "What did you learn about yourself through this experience?",
         "How can you keep this experience in mind in the future?"
-        };
+    };
     }
-    public override string GetDescription()
-    
-    {
-        return _mainIntro;
-    }
+
     public override void Start(int duration)
     {
-        Console.WriteLine("Start reflecting...");
+        DisplayStartMessage();
         SpinnerAnimation(10);
+
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(duration);
 
         while (DateTime.Now < endTime)
         {
+            // Display random prompt
+            string randomPrompt = GetRandomPrompt();
+            Console.WriteLine($"--{randomPrompt}--");
+            Console.WriteLine("When you have something in mind, press enter to continue.");
+            Console.ReadLine();
 
-        //display random prompt
-        string randomPrompt = GetRandomPrompt();
-        Console.WriteLine($"--{randomPrompt }--");
-        Console.WriteLine("When you have something in mind, press enter to continue.");
-        Console.ReadLine();
-        
-        // countdown animation
-        Console.WriteLine("Now ponder on each of the following questions as they relate to this experience.");
-        CountdownAnimation(5);
-        Console.Clear();
+        // Countdown animation
+            Console.WriteLine("Now ponder on each of the following questions as they relate to this experience.");
+            CountdownAnimation(5);
+            Console.Clear();
 
-        // ask a random questions
-        AskRandomQuestions(duration);
+        // Ask random questions
+            AskRandomQuestions(duration);
+
+            DisplayEndMessage();
         }
-            Console.WriteLine("Well done!!");
-        }
-        
-        private string GetRandomPrompt()
+    }
+
+    private string GetRandomPrompt()
     {
         Random random = new Random();
         int index = random.Next(_prompts.Count);
@@ -72,20 +69,23 @@ public class Reflecting : Activity
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(duration);
 
-    while (DateTime.Now < endTime)
-    {
-        
-            Random random = new Random();
-            int index = random.Next(_questions.Count);
-            Console.WriteLine($"--{_questions[index]}--");
-            SpinnerAnimation(10);
+        while (DateTime.Now < endTime)
+        {
             Console.Clear();
+            Random random = new Random();
 
-                
+            for (int i = 0; i <3; i++)
+            {
+            int index = random.Next(_questions.Count);
+            Console.Write($"--{_questions[index]}--");
+            SpinnerAnimation(duration);
+            Console.Clear();
             }
-            StopSpinner();
-            
+        }
+    }
+    public override string GetDescription()
+    {
+        return "Description for Reflecting activity.";
     }
 }
-
 

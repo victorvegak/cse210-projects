@@ -55,8 +55,9 @@ class Program
         int duration = int.Parse(Console.ReadLine());
         Console.Clear(); 
 
-        Console.WriteLine("Get Ready..."); 
-        //activity.Start(duration);
-        activity.StartActivity(duration);
+        Console.WriteLine("Get Ready...");
+        Thread.Sleep(3000);
+
+        activity.Start(duration);
     }
 }    
