@@ -1,0 +1,4 @@
+Simple:read,read,10, 10
+Eternal:pray,pray,10,10
+Checklist:talk,speak,10,1,10,1
+Simple:walk,walk,10, 10
